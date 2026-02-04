@@ -34,11 +34,11 @@ def browser_setup(request):
             'screenResolution': '1920x1080x24'
         }
     }
+
     options.capabilities.update(selenoid_capabilities)
-    #browser.config.driver_options = options
-    #browser.config.driver_remote_url = selenoid_url
+
     remote_driver = Remote(
-        command_executor=selenoid_url,  # Используем URL из .env
+        command_executor=selenoid_url,
         options=options
     )
 
@@ -51,8 +51,3 @@ def browser_setup(request):
     attach.add_video(browser)
 
     browser.quit()
-
-
-#@pytest.fixture(scope="session", autouse=True)
-#def load_env():
-   # load_dotenv()
