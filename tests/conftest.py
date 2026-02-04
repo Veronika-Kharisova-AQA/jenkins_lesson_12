@@ -1,21 +1,33 @@
 import pytest
 from selene import browser
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver import Remote
 from utils import attach
 from dotenv import load_dotenv
 import os
+
+
+load_dotenv()
 
 selenoid_login = os.getenv("SELENOID_LOGIN")
 selenoid_pass = os.getenv("SELENOID_PASS")
 selenoid_url = os.getenv("SELENOID_URL")
 
+def pytest_addoption(parser):
+    parser.addoption(
+        '--browserVersion',
+        help='Браузер в котором будут запущены тесты',
+        default='127.0'
+    )
+
 @pytest.fixture(scope='function', autouse=True)
-def browser_setup():
+def browser_setup(request):
+    browser_version = request.config.getoption('--browserVersion')
     browser.config.base_url = 'https://demoqa.com'
     options = Options()
     selenoid_capabilities = {
         'browserName': 'chrome',
-        'browserVersion': '127.0',
+        'browserVersion': browser_version,
         'selenoid:options': {
             'enableVNC': True,
             'enableVideo': True,
@@ -23,8 +35,14 @@ def browser_setup():
         }
     }
     options.capabilities.update(selenoid_capabilities)
-    browser.config.driver_options = options
-    browser.config.driver_remote_url = 'https://user1:1234@selenoid.autotests.cloud/wd/hub'
+    #browser.config.driver_options = options
+    #browser.config.driver_remote_url = selenoid_url
+    remote_driver = Remote(
+        command_executor=selenoid_url,  # Используем URL из .env
+        options=options
+    )
+
+    browser.config.driver = remote_driver
 
     yield
     attach.add_screenshot(browser)
@@ -35,6 +53,6 @@ def browser_setup():
     browser.quit()
 
 
-@pytest.fixture(scope="session", autouse=True)
-def load_env():
-    load_dotenv()
+#@pytest.fixture(scope="session", autouse=True)
+#def load_env():
+   # load_dotenv()
