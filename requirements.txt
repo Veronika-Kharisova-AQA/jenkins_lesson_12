@@ -1,5 +1,6 @@
-pytest==8.4.2
+pytest==8.3.3
 selene==2.0.0rc9
-selenium==4.35.0
-allure-pytest==2.15.0
-allure-python-commons==2.15.0
+selenium==4.38.0
+allure-pytest==2.13.5
+allure-python-commons==2.13.5
+python-dotenv==1.2.1
