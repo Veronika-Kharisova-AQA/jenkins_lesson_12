@@ -6,7 +6,7 @@
     "comment": "homework",
     "reportLink": "${BUILD_URL}",
     "language": "ru",
-    "allureFolder": "tests/allure-results/",
+    "allureFolder": "allure-report",
     "enableChart": true,
     "enableSuitesPublishing": true,
     "customData": {}
