@@ -1,0 +1,21 @@
+{
+  "base": {
+    "logo": "logo.png",
+    "project": "${JOB_BASE_NAME}",
+    "environment": "stage",
+    "comment": "homework",
+    "reportLink": "${BUILD_URL}",
+    "language": "ru",
+    "allureFolder": "tests/allure-results/",
+    "enableChart": true,
+    "enableSuitesPublishing": true,
+    "customData": {}
+  },
+  "telegram": {
+    "token": "8525377354:AAE7gi4xfgUc-pqK18zPnLNGP0BInYtMhyY",
+    "chat": "-5121014216",
+    "topic": "",
+    "replyTo": "",
+    "templatePath": "/templates/telegram.ftl"
+  }
+}
